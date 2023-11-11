@@ -1,7 +1,8 @@
 main {
-   background-color: #202020;
-   flex-grow: 1;
-   justify-content: center;
-   text-align: center;
-   display: flex;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    background-color: #202020;
+    flex-grow: 1;
+    align-items: center;
 }

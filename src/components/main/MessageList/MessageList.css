@@ -1,0 +1,39 @@
+.message-list {
+  width: 100%;
+}
+.message-list .message {
+  background: #181818;
+  padding: 25px;
+}
+.message-list .message:nth-child(even) {
+  background: #232323;
+}
+.message-list .message:nth-child(even) .container {
+  max-width: 750px;
+  margin: 0 auto;
+  display: flex;
+}
+.message-list .message:nth-child(even) .container .avatar {
+  background: rgba(222, 255, 0, 0.27);
+}
+.message-list .message .container {
+  max-width: 750px;
+  margin: 0 auto;
+  display: flex;
+}
+.message-list .message .container .avatar {
+  width: 30px;
+  height: 30px;
+  background: rgba(0, 190, 255, 0.2705882353);
+  display: block;
+  flex-shrink: 0;
+  margin-right: 30px;
+  border-radius: 4px;
+  margin-top: 2px;
+}
+.message-list .message .container .content p {
+  margin-top: 0;
+}
+.message-list .message .container .content p:last-child {
+  margin-bottom: 0;
+}
