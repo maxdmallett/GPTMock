@@ -1,17 +1,30 @@
 import './MessageList.css'
 import Message from './Message'
+import { ThreadMessage } from 'openai/resources/beta/threads/messages/messages.mjs';
 
-const MessageList = () => {
+interface IProps {
+    messages: ThreadMessage[];
+}
+
+const MessageList = (props: IProps) => {
+
+    const { messages } = props;
+
+    if (!messages) return null;
+
     return (
         <section className='message-list'>
-            <Message />
-            <Message />
-            <Message />
-            <Message />
-            <Message />
-            <Message />
-            <Message />
-            <Message />
+            {
+                messages.map((message) => {
+                    return (
+                        <Message
+                            key={message.id}
+                            id={message.id}
+                            content={message.content}
+                        />
+                    )
+                })
+            }
         </section>
     )
 }

@@ -1,12 +1,30 @@
-const Message = () => {
+import { MessageContentImageFile, MessageContentText } from "openai/resources/beta/threads/messages/messages.mjs";
+
+interface IProps {
+    id: string;
+    content: (MessageContentImageFile | MessageContentText)[];
+}
+
+const Message = (props: IProps) => {
+    const { id } = props;
     return (
         <article className="message">
             <div className="container">
                 <div className="avatar"></div>
                 <div className="content">
-                    <p>
-                        Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo.
-                    </p>
+                    {
+                        props.content.map((content, index) => {
+                            if (content.type === 'text') {
+                                return (
+                                    <p key={id + String(index) + 'text'}>{content.text.value}</p>
+                                )
+                            } else {
+                                return (
+                                    <img key={id + String(index) + 'image'} src={content.image_file.file_id} alt={content.image_file.file_id} />
+                                )
+                            }
+                        })
+                    }
                 </div>
             </div>
         </article>
