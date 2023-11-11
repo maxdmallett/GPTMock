@@ -1,0 +1,55 @@
+.message-input {
+    position: fixed;
+    width: 750px;
+    bottom: 50px;
+
+    .input-container {
+        width: 100%;
+        border-radius: 10px;
+        overflow: hidden;
+        background: #2d2d2d;
+        box-shadow: 0 0 15px rgba(0,0,0,0.05);
+
+        textarea {
+            width: 100%;
+            background: transparent;
+            border: none;
+            resize: none;
+            width: 100%;
+            display: block;
+            height: 54px;
+            padding: 1rem;
+            padding-right: 6rem;
+            box-sizing: border-box;
+            font-size: 1rem;
+            font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
+
+            &:focus {
+                outline: none;
+            }
+        }
+
+        .btn-cta {
+            background: #0089aa;
+            border-radius: 4px;
+            padding: 10px 20px;
+            border: none;
+            cursor: pointer;
+            font-size: 15px;
+            position: absolute;
+            text-transform: uppercase;
+            right: 9px;
+            bottom: 9px;
+            transition: background-color 0.3s ease-in-out;
+
+            &:hover {
+                background: #05a7ce;
+            }
+
+            &[disabled] {
+                cursor: initial;
+                background: rgba(255, 255, 255, 0.2);
+            }
+        }
+    }
+}
