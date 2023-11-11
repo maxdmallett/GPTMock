@@ -1,7 +1,13 @@
 import { useState } from 'react';
 import './MessageInput.css';
 
-const MessageInput = () => {
+interface IProps {
+    sendMessage: (message: string) => void;
+}
+
+const MessageInput = (props: IProps) => {
+
+    const { sendMessage } = props;
 
     const [sendEnabled, setSendEnabled] = useState<boolean>(false);
     const [textAreaValue, setTextAreaValue] = useState<string>('');
@@ -12,8 +18,21 @@ const MessageInput = () => {
     }
 
     const sendButtonClickHandler = () => {
+        clearInputAndSendMessage();
+    }
+
+    const keyDownHandler = (event: React.KeyboardEvent<HTMLTextAreaElement>) => {
+        if (event.key === 'Enter') {
+            event.preventDefault();
+            clearInputAndSendMessage();
+        }
+    }
+
+    const clearInputAndSendMessage = () => {
+        if (textAreaValue.length < 1) return;
         setTextAreaValue('');
         setSendEnabled(false);
+        sendMessage(textAreaValue);
     }
 
     return (
@@ -22,6 +41,7 @@ const MessageInput = () => {
                 <textarea
                     placeholder='Send a message'
                     onChange={textAreaChangeHandler}
+                    onKeyDown={keyDownHandler}
                     value={textAreaValue}
                 >
                 </textarea>
