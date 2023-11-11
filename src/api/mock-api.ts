@@ -2,7 +2,7 @@ import { Thread } from "openai/resources/beta/threads/threads.mjs";
 import { Run } from "openai/resources/beta/threads/runs/runs.mjs";
 import { ThreadMessage, ThreadMessagesPage } from "openai/resources/beta/threads/messages/messages.mjs";
 
-const mockMessages: ThreadMessage[] = [];
+const storedMessages: ThreadMessage[] = [];
 
 export const createThread = async (): Promise<Thread> => {
     //console.log("createThread");
@@ -21,7 +21,7 @@ export const createThread = async (): Promise<Thread> => {
 export const sendMessageToThread = async(content: string, thread: Thread): Promise<ThreadMessage> => {
     //console.log("sendMessageToThread");
     const message = await createMessage(content, thread);
-    mockMessages.push(message);
+    storedMessages.push(message);
     return message;
 }
 
@@ -151,17 +151,17 @@ export const getMessagesList = async (thread: Thread): Promise<ThreadMessagesPag
         setTimeout(() => {
             resolve({
                 "object": "list",
-                "data": mockMessages,
+                "data": storedMessages,
                 "first_id": "msg_abc123",
                 "last_id": "msg_abc456",
                 "has_more": false
             });
-        }, 500);
+        }, 1000);
     });
 }
 
 const createMockReponse = () => {
-    mockMessages.push({
+    storedMessages.push({
         "id": "msg_abc" + Math.ceil(Math.random() * 100000),
         "object": "thread.message",
         "created_at": 1698983503,

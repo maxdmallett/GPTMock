@@ -9,11 +9,16 @@ export const createThread = async (): Promise<Thread> => {
     return await openai.beta.threads.create();
 }
 
-export const sendMessageAndWaitForResponse = async(content: string, thread: Thread): Promise<ThreadMessagesPage> => {
-    await createMessage(content, thread);
+export const sendMessageToThread = async(content: string, thread: Thread): Promise<ThreadMessage> => {
+    const message = await createMessage(content, thread);
+    return message;
+}
+
+export const runThreadAndWaitForResponse = async(thread: Thread): Promise<ThreadMessage[]> => {
     const run = await createRun(thread, "asst_abc123");
     await waitForRunToComplete(thread, run);
-    return getMessagesList(thread);
+    const messagesList = await getMessagesList(thread);
+    return messagesList.data;
 }
 
 export const createMessage = async (content: string, thread: Thread): Promise<ThreadMessage> => {
