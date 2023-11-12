@@ -7,19 +7,19 @@ import { createThread, runThreadAndWaitForResponse, sendMessageToThread } from '
 import { ThreadMessage } from 'openai/resources/beta/threads/messages/messages.mjs'
 import './main.css'
 
+
+
 const Main = () => {
 
     const [thread, setThread] = useState<Thread | null>(null);
     const [messages, setMessages] = useState<ThreadMessage[]>([]);
+    const [waitingForResponse, setWaitingForResponse] = useState<boolean>(false);
 
     const sendMessage = async (message: string) => {
-        //console.log('sendMessage');
-
         if (thread) {
             addMessage(message, thread);
         } else {
             createThread().then((thread) => {
-                //console.log('thread created');
                 setThread(thread);
                 addMessage(message, thread);
             });
@@ -29,7 +29,9 @@ const Main = () => {
     const addMessage = (message: string, thread: Thread) => {
         sendMessageToThread(message, thread).then((response) => {
             setMessages(previousMessages => [...previousMessages, response]);
+            setWaitingForResponse(true);
             runThreadAndWaitForResponse(thread).then((response) => {
+                setWaitingForResponse(false);
                 setMessages(() => [...response]);
                 console.log('**messages**');
                 console.log(messages);
@@ -42,6 +44,7 @@ const Main = () => {
             <HeaderBar />
             <MessageList
                 messages={messages}
+                waitingForResponse={waitingForResponse}
             />
             <MessageInput
                 sendMessage={sendMessage}

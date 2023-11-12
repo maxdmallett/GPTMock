@@ -14,7 +14,7 @@ export const createThread = async (): Promise<Thread> => {
                 "created_at": 1699012949,
                 "metadata": {}
             });
-        }, 500);
+        }, 300);
     });
 }
 
@@ -171,7 +171,7 @@ const createMockReponse = () => {
             {
             "type": "text",
             "text": {
-                "value": 'Hello, how are you?',
+                "value": getRandomStringFromArray(mockReponses),
                 "annotations": []
             }
             }
@@ -181,4 +181,18 @@ const createMockReponse = () => {
         "run_id": "run_abc123",
         "metadata": {}
     });
+}
+
+const mockReponses: string[] = [
+    'Lorem ipsum dolor sit amet, consectetur adipiscing elit.',
+    'Cras rutrum, turpis ut luctus dignissim, justo dolor fermentum nunc, aliquam luctus diam ante a arcu. Etiam fermentum porttitor scelerisque. Nulla ultrices quam convallis tortor fermentum, tempor fermentum libero blandit. Praesent posuere quam bibendum turpis suscipit luctus. ',
+    'Morbi ac lectus scelerisque, vehicula ipsum at, accumsan velit.',
+    'Morbi et hendrerit tellus, et sodales diam. Praesent a libero vitae tortor efficitur rhoncus at ac felis. Ut in tincidunt diam, nec suscipit orci. Suspendisse tristique luctus vehicula. Donec consequat nulla massa, sit amet fermentum erat convallis in. Integer ac malesuada risus, malesuada porttitor lorem. ',
+    'Duis auctor pretium nulla, nec tempor libero dictum a. Nullam ornare mauris ut scelerisque accumsan. Sed quis nunc eu libero consectetur cursus. Ut nisi justo, ultrices eu mi et, dictum vulputate ipsum. Donec eu vulputate urna. Sed consectetur diam dolor, sit amet vestibulum dui iaculis et. Sed consectetur sollicitudin quam, quis cursus quam ornare a.',
+    'Aliquam venenatis, dui quis tempor elementum.',
+    'Maecenas odio nisl, gravida ac nunc et, pretium ultrices nulla. Nulla vehicula, velit et fermentum tincidunt.',
+];
+
+const getRandomStringFromArray = (array: string[]): string => {
+    return array[Math.floor(Math.random() * array.length)];
 }
