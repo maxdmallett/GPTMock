@@ -30,6 +30,7 @@ const Main = (props: IProps) => {
             
             <MessageInput
                 sendMessage={sendMessage}
+                waitingForResponse={waitingForResponse}
             />
         </main>
     )

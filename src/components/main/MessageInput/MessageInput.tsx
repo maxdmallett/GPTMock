@@ -3,11 +3,12 @@ import './MessageInput.css';
 
 interface IProps {
     sendMessage: (message: string) => void;
+    waitingForResponse: boolean;
 }
 
 const MessageInput = (props: IProps) => {
 
-    const { sendMessage } = props;
+    const { sendMessage, waitingForResponse } = props;
 
     const [sendEnabled, setSendEnabled] = useState<boolean>(false);
     const [textAreaValue, setTextAreaValue] = useState<string>('');
@@ -29,7 +30,7 @@ const MessageInput = (props: IProps) => {
     }
 
     const clearInputAndSendMessage = () => {
-        if (textAreaValue.length < 1) return;
+        if (textAreaValue.length < 1 || waitingForResponse) return;
         setTextAreaValue('');
         setSendEnabled(false);
         sendMessage(textAreaValue);
