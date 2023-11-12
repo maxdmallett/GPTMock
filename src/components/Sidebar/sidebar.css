@@ -1,4 +1,37 @@
 .sidebar {
   background-color: #2b2b2b;
   width: 260px;
+  padding: 0 25px;
+  box-sizing: border-box;
+}
+.sidebar h3 {
+  font-size: 18px;
+}
+.sidebar .thread-item {
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  font-size: 15px;
+  padding: 10px 15px 10px 30px;
+  border-radius: 4px;
+  position: relative;
+  -webkit-user-select: none;
+     -moz-user-select: none;
+          user-select: none;
+}
+.sidebar .thread-item::before {
+  content: "";
+  width: 4px;
+  height: 4px;
+  background: white;
+  position: absolute;
+  top: 50%;
+  left: 15px;
+  transform: translateY(-50%);
+  overflow: hidden;
+  white-space: nowrap;
+}
+.sidebar .thread-item p {
+  margin: 0;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  overflow: hidden;
 }
