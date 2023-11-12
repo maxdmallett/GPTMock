@@ -6,8 +6,7 @@ import { Thread } from 'openai/resources/beta/threads/threads.mjs'
 import { createThread, runThreadAndWaitForResponse, sendMessageToThread } from '../../api/mock-api'
 import { ThreadMessage } from 'openai/resources/beta/threads/messages/messages.mjs'
 import './main.css'
-
-
+import MessageInstructions from './MessageList/MessageInstructions/MessageInstructions'
 
 const Main = () => {
 
@@ -42,10 +41,17 @@ const Main = () => {
     return (
         <main>
             <HeaderBar />
-            <MessageList
-                messages={messages}
-                waitingForResponse={waitingForResponse}
-            />
+            {
+                messages.length > 0 ? (
+                    <MessageList
+                        messages={messages}
+                        waitingForResponse={waitingForResponse}
+                    />
+                ) : (
+                    <MessageInstructions />
+                )
+            }
+            
             <MessageInput
                 sendMessage={sendMessage}
             />
