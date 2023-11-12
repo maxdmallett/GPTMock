@@ -10,6 +10,7 @@ const Sidebar = (props: IProps) => {
     return (
         <section className="sidebar">
             {
+                // Currently can only handle one thread at a time
                 messages.length > 0 && (
                     <>
                         <h3>Threads</h3>
