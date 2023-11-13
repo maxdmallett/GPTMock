@@ -3,6 +3,7 @@ import Sidebar from './components/Sidebar/Sidebar'
 import Main from './components/main/Main'
 import { useState } from 'react'
 import { Thread } from 'openai/resources/beta/threads/threads.mjs'
+//import { createThread, runThreadAndWaitForResponse, sendMessageToThread } from './api/api'
 import { createThread, runThreadAndWaitForResponse, sendMessageToThread } from './api/mock-api'
 import { ThreadMessage } from 'openai/resources/beta/threads/messages/messages.mjs'
 

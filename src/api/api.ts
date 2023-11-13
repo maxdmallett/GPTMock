@@ -4,18 +4,19 @@ import { Run } from "openai/resources/beta/threads/runs/runs.mjs";
 import { ThreadMessage, ThreadMessagesPage } from "openai/resources/beta/threads/messages/messages.mjs";
 
 const openai = new OpenAI();
+const waitForRunInterval: number = 2000;
+const assistantId: string = "xxx";
 
 export const createThread = async (): Promise<Thread> => {
     return await openai.beta.threads.create();
 }
 
 export const sendMessageToThread = async(content: string, thread: Thread): Promise<ThreadMessage> => {
-    const message = await createMessage(content, thread);
-    return message;
+    return await createMessage(content, thread);
 }
 
 export const runThreadAndWaitForResponse = async(thread: Thread): Promise<ThreadMessage[]> => {
-    const run = await createRun(thread, "asst_abc123");
+    const run = await createRun(thread, assistantId);
     await waitForRunToComplete(thread, run);
     const messagesList = await getMessagesList(thread);
     return messagesList.data;
@@ -38,15 +39,18 @@ export const createRun = async (thread: Thread, assistantId: string): Promise<Ru
     );
 }
 
-const waitForRunToComplete = async (thread: Thread, run: Run) => {
-    if (await isRunComplete(thread, run)) return;
+const waitForRunToComplete = async (thread: Thread, run: Run): Promise<void> => {
+    const isComplete = await isRunComplete(thread, run);
+    if (isComplete) return;
 
-    const interval = setInterval(async () => {
-        if (await isRunComplete(thread, run)) {
-            clearInterval(interval);
-            return;
-        }
-    }, 1000);
+    return new Promise((resolve) => {
+        const interval = setInterval(async () => {
+            if (await isRunComplete(thread, run)) {
+                clearInterval(interval);
+                resolve();
+            }
+        }, waitForRunInterval);
+    });
 }
 
 const isRunComplete = async (thread: Thread, run: Run): Promise<boolean> => {
